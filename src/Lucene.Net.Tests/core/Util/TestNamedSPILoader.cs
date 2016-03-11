@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Lucene.Net.Util
 {
+    using System;
+
     using Codec = Lucene.Net.Codecs.Codec;
 
     /*
@@ -27,6 +29,25 @@ namespace Lucene.Net.Util
     [TestFixture]
     public class TestNamedSPILoader : LuceneTestCase
     {
+        [Test]
+        public virtual void Lookup_ExistingService_ReturnServiceByName()
+        {
+            var loader = new NamedSPILoader<Codec>(typeof(Codec));
+
+            var codec = loader.Lookup("Lucene46");
+
+            Assert.IsNotNull(codec);
+            Assert.AreEqual("Lucene46", codec.Name);
+        }
+
+        [Test]
+        public virtual void Lookup_NonexistingService_ThrowsException()
+        {
+            var loader = new NamedSPILoader<Codec>(typeof(Codec));
+
+            Assert.Throws<ArgumentException>(() => loader.Lookup("NonexistingServiceName_dskfdskfsdfksdfdsf"));
+        }
+
         [Test]
         public virtual void TestLookup()
         {

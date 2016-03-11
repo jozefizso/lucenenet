@@ -82,4 +82,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]
 
-[assembly: Timeout(20000)]
+//[assembly: Timeout(20000)]
+[assembly: SetCulture("en-us")]
